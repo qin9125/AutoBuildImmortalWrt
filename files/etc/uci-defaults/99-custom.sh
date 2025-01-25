@@ -38,8 +38,11 @@ if [ "$count" -eq 1 ]; then
    uci set network.lan.proto='dhcp'
 elif [ "$count" -gt 1 ]; then
    # 多网口设备 支持修改为别的ip地址
-   uci set network.lan.ipaddr='192.168.100.1'
-   echo "set 192.168.100.1 at $(date)" >> $LOGFILE
+   uci set network.lan.ipaddr='192.168.0.1'
+   echo "set 192.168.0.1 at $(date)" >> $LOGFILE
+   # 设置 eth0 为 WAN 口
+   uci set network.wan.ifname='eth0'
+   echo "set eth0 as WAN at $(date)" >> $LOGFILE
    # 判断是否启用 PPPoE
    echo "print enable_pppoe value=== $enable_pppoe" >> $LOGFILE
    if [ "$enable_pppoe" = "yes" ]; then
